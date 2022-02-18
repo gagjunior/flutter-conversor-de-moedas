@@ -1,3 +1,4 @@
+import 'package:conversor_de_moedas/main.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -19,7 +20,21 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.amber,
         centerTitle: true,
       ),
-      body: ,
+      body: FutureBuilder<Map>(
+        future: getData(),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+            case ConnectionState.waiting:
+              return Center(
+                child: Text(
+                  'Carregando dados...',
+                  style: TextStyle(),
+                ),
+              );
+          }
+        },
+      ),
     );
   }
 }
