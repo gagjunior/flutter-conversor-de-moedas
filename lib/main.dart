@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:async';
@@ -16,7 +18,11 @@ void main(List<String> args) async {
 }
 
 Future<Map> getData() async {
-  var url = Uri.parse(request);
-  http.Response response = await http.get(url);
-  return json.decode(response.body);
+  try {
+    var url = Uri.parse(request);
+    http.Response response = await http.get(url);
+    return json.decode(response.body);
+  } on Exception catch (e) {
+    throw HttpException(e.toString());
+  }
 }
