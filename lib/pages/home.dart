@@ -14,7 +14,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           '\$ Conversor \$',
         ),
         backgroundColor: Colors.amber,
@@ -26,12 +26,31 @@ class _HomeState extends State<Home> {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
             case ConnectionState.waiting:
-              return Center(
-                child: Text(
-                  'Carregando dados...',
-                  style: TextStyle(),
+              return const Center(
+                  child: Text(
+                'Carregando dados...',
+                style: TextStyle(
+                  color: Colors.amber,
+                  fontSize: 25.0,
                 ),
-              );
+                textAlign: TextAlign.center,
+              ));
+            default:
+              if (snapshot.hasError) {
+                return const Center(
+                    child: Text(
+                  'Carregando dados...',
+                  style: TextStyle(
+                    color: Colors.amber,
+                    fontSize: 25.0,
+                  ),
+                  textAlign: TextAlign.center,
+                ));
+              } else {
+                return Container(
+                  color: Colors.green,
+                );
+              }
           }
         },
       ),
